@@ -1,0 +1,63 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+
+
+int xor8(FILE* input) {
+	int result = fgetc(input);
+	int simbol = fgetc(input);
+	while (!feof(input)) {
+		result ^= simbol;
+		simbol = fgetc(input);
+	}
+	return result;
+}
+
+
+
+unsigned int xor32(FILE* input) {
+	unsigned int result = 0;
+	unsigned int operand = 0;
+	unsigned int n = 0;
+	while (!feof(input)) {
+		unsigned int n = 0;
+		for (int i = 0; i < 4; i++) {
+			n = fgetc(input);
+			printf("\n%u", n);
+			operand |= n;
+			operand = operand << 8;
+			result ^= operand;
+		}
+		printf("\n %u", operand);
+	}
+	return 0;
+}
+
+
+
+
+int main()
+{
+	char way[100] = { 0 };
+	printf("Enter the name of file:");
+	scanf("%s", &way);
+	FILE* file;
+	file = fopen(way, "r");
+	if ((file = fopen(way, "r")) == NULL) {
+		printf("ERROR");
+	}
+
+
+
+	int result = xor8(file);
+	printf("Result of XOR8: ");
+	printf("%d", result);
+	fclose(file);
+
+	file = fopen(way, "r");
+	if ((file = fopen(way, "r")) == NULL) {
+		printf("ERROR");
+	}
+	xor32(file);
+
+	return 0;
+}
