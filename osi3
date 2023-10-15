@@ -1,0 +1,39 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+
+
+
+
+int main() {
+	char way1[100] = { 0 };
+	char way2[100] = { 0 };
+	printf("Enter the name of first file:\n");
+	scanf("%s", &way1);
+	printf("Enter the name of second file:\n");
+	scanf("%s", &way2);
+	FILE *file1;
+	FILE *file2;
+	file1 = fopen(way1, "r");
+	file2 = fopen(way2, "w");
+
+	if ((file1 = fopen(way1, "r")) == NULL) {
+		printf("ERROR");
+		return 0;
+	}
+
+	if ((file2 = fopen(way2, "w")) == NULL) {
+		printf("ERROR");
+		return 0;
+	}
+
+	char simbol = fgetc(file1);
+	while (!feof(file1)) {
+		fprintf(file2, "%c", simbol);
+		simbol = fgetc(file1);
+	}
+
+	fclose(file1);
+	fclose(file2);
+
+	return 0;
+}
